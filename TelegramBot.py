@@ -1,7 +1,10 @@
 import telebot
+from telebot import types
 import const
 
 bot = telebot.TeleBot(const.API_TOKEN)
+markup_menu = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
