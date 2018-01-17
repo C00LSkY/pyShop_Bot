@@ -15,7 +15,7 @@ markup_menu.add(btn_adress, btn_delivery, btn_payment)
 def send_welcome(message):
 	bot.reply_to(message, "Привет, я бот интернет-магазина", reply_markup = markup_menu)
 
-@bot.message_handler(func=lambda m: True)
+@bot.message_handler(func=lambda message: True)
 def echo_all(message):
 	if message.text == "Способы доставки":
 		bot.reply_to(message, "Доставка курьером, самовывоз, почта России", reply_markup = markup_menu)
@@ -23,5 +23,12 @@ def echo_all(message):
 		bot.reply_to(message, "Наличные, по карте, Банковский перевод", reply_markup = markup_menu)
 	else:
 		bot.reply_to(message, message.text, reply_markup = markup_menu)
+
+@bot.message_handler(func=lambda message: True, content_types=['location'])
+def magazin_location(message):
+	lon = message.location.longitude
+	lat = message.location.latitude
+
+	print('Широта {} Долгота {}'.format(lon, lat))
 
 bot.polling()
